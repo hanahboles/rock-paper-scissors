@@ -1,10 +1,36 @@
+function game() {
+    let numRounds = 5
+    let score = 0
+    let computerScore = 0
+
+    for (i = 0; i < numRounds; i++) {
+        let playerSelection = prompt("Rock, paper, or scissors?").trim().toLowerCase()
+        let computerSelection = getComputerChoice()
+        let game = playRound(playerSelection, computerSelection)
+        game.win ? score++ : computerScore++
+        console.log('your score', score)
+        console.log('computer score', computerScore)
+        alert(game.message)
+        // if game is a tie, need to add another round
+        if (game.win === null) {
+            numRounds++
+        }
+    }
+
+    if (score > computerScore) {
+        alert('You win the game!')
+    } else {
+        alert('You lose the game')
+    }
+}
+
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        return "Tie!"
+        return {win: null, message: "Tie!"}
     }
 
     const win = playerSelection === 'rock' && computerSelection === 'scissors' || playerSelection === 'paper' && computerSelection === 'rock' || playerSelection === 'scissors' && computerSelection === 'paper'
-    return win ? `Yay! ${playerSelection} beats ${computerSelection}` : `You lose! ${computerSelection} beats ${playerSelection}` 
+    return {win, message: win ? `Yay! ${playerSelection} beats ${computerSelection}` : `You lose! ${computerSelection} beats ${playerSelection}`} 
 }
 
 function getComputerChoice() {
@@ -21,6 +47,4 @@ function getComputerChoice() {
     }
 }
 
-const playerSelection = prompt("Rock, paper, or scissors?").trim().toLowerCase();
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+game()
