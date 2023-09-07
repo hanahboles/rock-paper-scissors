@@ -4,7 +4,7 @@ function game() {
     let computerScore = 0
 
     for (i = 0; i < numRounds; i++) {
-        let playerSelection = prompt("Rock, paper, or scissors?").trim().toLowerCase()
+        let playerSelection = getPlayerChoice()
         let computerSelection = getComputerChoice()
         let game = playRound(playerSelection, computerSelection)
         game.win ? score++ : computerScore++
@@ -44,6 +44,17 @@ function getComputerChoice() {
             return 'scissors'
         default: 
             console.log('something went wrong')
+    }
+}
+
+function getPlayerChoice() {
+    const playerSelection = prompt("Rock, paper, or scissors?").trim().toLowerCase()
+
+    if (playerSelection !== 'rock' && playerSelection !== 'scissors' && playerSelection !== 'paper') {
+        alert('Please type a valid choice')
+        return getPlayerChoice()
+    } else {
+        return playerSelection
     }
 }
 
